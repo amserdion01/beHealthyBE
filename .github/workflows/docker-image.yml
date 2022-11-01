@@ -18,7 +18,7 @@ jobs:
 
     - name: Test
       env: 
-        DNS: ${{ secrets.DSN_TEST }}
+        DNS: ${{ secrets.DSN }}
       run: go test -v ./...
         
   dockerimage:
