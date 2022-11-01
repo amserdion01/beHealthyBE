@@ -32,8 +32,8 @@ jobs:
     - name: Login to DockerHub 
       uses: docker/login-action@v1
       with:
-        username: amserdion 
-        password: 94362bd3-ccaf-4491-a80d-64fb6813b3ce 
+        username: ${{ secrets.DOCKER_PASSWORD }}
+        password: ${{ secrets.DOCKER_USERNAME }}
     
     - name: Docker meta
       id: meta
