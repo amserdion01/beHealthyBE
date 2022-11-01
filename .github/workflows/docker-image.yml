@@ -39,7 +39,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          amserdion/internshipgolang
+          amserdion/beHealthyBE
         # generate Docker tags based on the following events/attributes
         tags: |
           type=schedule
@@ -49,6 +49,7 @@ jobs:
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
           type=sha
+
     - name: Build image and push to Docker Hub and GitHub Container Registry
       uses: docker/build-push-action@v2
       with:
@@ -58,11 +59,3 @@ jobs:
         push: ${{ github.ref == 'refs/heads/main' }}
         # Note: tags has to be all lower-case
         tags: ${{steps.meta.outputs.tags}}
-
-    - name: Checkout Argo
-      uses: actions/checkout@v3
-      with: 
-        repository: princekhanna13/internshipargo
-        ref: 'main'
-        token: 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
-        path: ./projectArgo
