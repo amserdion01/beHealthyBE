@@ -1,0 +1,7 @@
+[GIN-debug] GET    /v1/ping                  --> main.main.func1 (3 handlers)
+[GIN-debug] GET    /v1/recipe/               --> beHealthyBE/api.GetRecipes (3 handlers)
+[GIN-debug] POST   /v1/recipe/               --> beHealthyBE/api.PostRecipe (3 handlers)
+[GIN-debug] PUT    /v1/recipe/:id            --> beHealthyBE/api.UpdateRecipe (3 handlers)
+[GIN-debug] GET    /v1/recipe/:id            --> beHealthyBE/api.GetRecipeByID (3 handlers)
+[GIN-debug] DELETE /v1/recipe/               --> beHealthyBE/api.DeleteAllRecipes (3 handlers)
+[GIN-debug] DELETE /v1/recipe/:id            --> beHealthyBE/api.DeleteRecipeByID (3 handlers)

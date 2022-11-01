@@ -1,0 +1,12 @@
+image: golang:latest
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - go mod tidy
+    - go run main.go
+    - go test

@@ -1,0 +1,14 @@
+FROM golang:latest as builder 
+ENV GOPATH /golang
+WORKDIR /
+COPY ./ /
+RUN go build main.go
+
+FROM debian:stretch
+ENV GIN_MODE release
+COPY --from=0 /main .
+COPY --from=0 ./db /db
+COPY --from=0 ./.env /
+EXPOSE 8080
+
+ENTRYPOINT ["./main"]
