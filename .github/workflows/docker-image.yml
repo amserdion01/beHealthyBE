@@ -1,0 +1,68 @@
+name: Docker Image CI
+
+on:
+  push:
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
+
+  dockerimage:
+    if: contains('refs/heads/main', github.ref)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub 
+      uses: docker/login-action@v1
+      with:
+        username: amserdion 
+        password: 94362bd3-ccaf-4491-a80d-64fb6813b3ce 
+    
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          amserdion/internshipgolang
+        # generate Docker tags based on the following events/attributes
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha
+    - name: Build image and push to Docker Hub and GitHub Container Registry
+      uses: docker/build-push-action@v2
+      with:
+        # relative path to the place where source code with Dockerfile is located
+        context: ./
+        # build on feature branches, push only on main branch
+        push: ${{ github.ref == 'refs/heads/main' }}
+        # Note: tags has to be all lower-case
+        tags: ${{steps.meta.outputs.tags}}
+
+    - name: Checkout Argo
+      uses: actions/checkout@v3
+      with: 
+        repository: princekhanna13/internshipargo
+        ref: 'main'
+        token: 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
+        path: ./projectArgo
