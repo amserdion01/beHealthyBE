@@ -19,7 +19,7 @@ func InitDatabase() {
 	if os.Getenv("BE_MODE") == "TEST" {
 		dotenvErr := godotenv.Load(".env")
 		if dotenvErr != nil {
-			log.Fatal("Error loading .env.test file", dotenvErr.Error())
+			log.Println("Error loading .env.test file", dotenvErr.Error())
 		}
 	} else {
 		dotenvERR := godotenv.Load()
