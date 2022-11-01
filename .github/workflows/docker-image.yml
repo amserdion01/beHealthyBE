@@ -13,12 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Build
-      run: go build -v ./...
+    # - name: Build
+    #   run: go build -v ./...
 
     - name: Test
       env: 
-        DNS: ${{ secrets.DSN }}
+        DSN: ${{ secrets.DSN }}
       run: go test -v ./...
         
   dockerimage:
