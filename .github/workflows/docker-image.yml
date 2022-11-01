@@ -17,8 +17,10 @@ jobs:
       run: go build -v ./...
 
     - name: Test
+      env: 
+        ${{ secrets.DSN_TEST }}
       run: go test -v ./...
-
+        
   dockerimage:
     if: contains('refs/heads/main', github.ref)
     runs-on: ubuntu-latest

@@ -17,14 +17,14 @@ var db *gorm.DB
 
 func InitDatabase() {
 	if os.Getenv("BE_MODE") == "TEST" {
-		dotenvErr := godotenv.Load(".env.test")
+		dotenvErr := godotenv.Load(".env")
 		if dotenvErr != nil {
 			log.Fatal("Error loading .env.test file", dotenvErr.Error())
 		}
 	} else {
 		dotenvERR := godotenv.Load()
 		if dotenvERR != nil {
-			log.Fatal("Error loading .env file")
+			log.Println("Error loading .env file")
 		}
 	}
 	migrateConnection, err := migrate.New("file://db/migrate", os.Getenv("DSN"))
