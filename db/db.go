@@ -27,7 +27,7 @@ func InitDatabase() {
 			log.Println("Error loading .env file")
 		}
 	}
-	log.Println(os.Getenv("DSN"))
+	log.Println("DSN:",os.Getenv("DSN"))
 	migrateConnection, err := migrate.New("file://db/migrate", os.Getenv("DSN"))
 	if err != nil {
 		fmt.Println(err)
