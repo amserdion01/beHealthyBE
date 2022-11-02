@@ -1,3 +1,4 @@
-/.env
-/beHealtyBE/beHealtyBE
-/beHealtyBE/gin.log
+.env
+.env.test
+beHealthyBE
+gin.log
