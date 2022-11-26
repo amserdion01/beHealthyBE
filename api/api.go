@@ -3,7 +3,9 @@ package api
 import (
 	"beHealthyBE/db"
 	"log"
+	"math/rand"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,6 +30,19 @@ func UpdateRecipe(ctx *gin.Context) {
 	db.GetDB().Where("id=?", ctx.Param("id")).Find(&updatedRecipe)
 	log.Println(updatedRecipe.AuthorID)
 	ctx.JSON(http.StatusOK, updatedRecipe)
+
+}
+func GetRandomRecipe(ctx *gin.Context) {
+	var recipes []db.Recipe
+	result := db.GetDB().Find(&recipes)
+	if result.Error != nil {
+		ctx.JSON(http.StatusConflict, gin.H{
+			"message": result.Error.Error(),
+		})
+		return
+	}
+	rand.Seed(time.Now().Unix())
+	ctx.JSON(http.StatusOK, recipes[rand.Intn(len(recipes)-1)])
 
 }
 func GetRecipeByID(ctx *gin.Context) {
@@ -88,6 +103,8 @@ func PostRecipe(ctx *gin.Context) {
 		ctx.JSON(http.StatusConflict, gin.H{"message": "Recipe already exists"})
 		return
 	}
+	log.Println(newRecipe.Cooking.String())
+
 	db.GetDB().Create(&newRecipe)
 
 	ctx.JSON(http.StatusCreated, newRecipe)

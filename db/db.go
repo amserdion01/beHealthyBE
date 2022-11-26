@@ -1,11 +1,9 @@
 package db
 
 import (
-	"fmt"
 	"log"
 	"os"
 
-	"github.com/golang-migrate/migrate"
 	_ "github.com/golang-migrate/migrate/database/postgres"
 	_ "github.com/golang-migrate/migrate/source/file"
 	"github.com/jinzhu/gorm"
@@ -28,17 +26,7 @@ func InitDatabase() {
 		}
 	}
 	log.Println(os.Getenv("DSN"))
-	migrateConnection, err := migrate.New("file://db/migrate", os.Getenv("DSN"))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	version, _, _ := migrateConnection.Version()
-	fmt.Println(version)
-	if version != 1 {
-		migrateConnection.Migrate(1)
-	}
-	migrateConnection.Close()
+
 	dbConnection, err := gorm.Open("postgres", os.Getenv("DSN"))
 	if err != nil {
 		log.Fatalf("dbconn: %s", err.Error())

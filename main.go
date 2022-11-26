@@ -45,6 +45,7 @@ func main() {
 		recipe.GET("/:id", api.GetRecipeByID)
 		recipe.DELETE("/", api.DeleteAllRecipes)
 		recipe.DELETE("/:id", api.DeleteRecipeByID)
+		recipe.GET("/random/", api.GetRandomRecipe)
 	}
 
 	srv := &http.Server{
