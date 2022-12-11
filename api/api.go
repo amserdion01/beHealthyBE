@@ -3,7 +3,10 @@ package api
 import (
 	"beHealthyBE/db"
 	"log"
+	"math/rand"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,6 +43,45 @@ func GetRecipeByID(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, recipe)
+}
+func in(recipe db.Recipe, recipes []db.Recipe) bool {
+	for _, v := range recipes {
+		if v == recipe {
+			return true
+		}
+	}
+	return false
+}
+func GetRandomRecipe(ctx *gin.Context) {
+
+	rand.Seed(time.Now().Unix()) // initialize global pseudo random generator
+
+	var recipes []db.Recipe
+	result := db.GetDB().Find(&recipes)
+	if result.Error != nil {
+		ctx.JSON(http.StatusConflict, gin.H{
+			"message": result.Error.Error(),
+		})
+		return
+	}
+	var randomRecipes []db.Recipe
+
+	i := 0
+	count, _ := strconv.Atoi(ctx.Param("count"))
+	recipesLen := len(recipes)
+	for i < count {
+		randomRecipe := recipes[rand.Intn(recipesLen)]
+		if !in(randomRecipe, randomRecipes) {
+			randomRecipes = append(randomRecipes, randomRecipe)
+			i += 1
+		}
+		if i == recipesLen {
+			break
+		}
+	}
+
+	ctx.JSON(http.StatusOK, randomRecipes)
+
 }
 func GetRecipes(ctx *gin.Context) {
 	var recipes []db.Recipe

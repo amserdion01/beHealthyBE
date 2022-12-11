@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,6 +29,7 @@ func main() {
 
 	gin.DefaultWriter = io.MultiWriter(f)
 	v1 := router.Group("/v1")
+	v1.Use(cors.Default())
 	{
 		v1.GET("/ping", func(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, gin.H{
@@ -41,6 +43,7 @@ func main() {
 	{
 		recipe.GET("/", api.GetRecipes)
 		recipe.POST("/", api.PostRecipe)
+		recipe.GET("/random/:count", api.GetRandomRecipe)
 		recipe.PUT("/:id", api.UpdateRecipe)
 		recipe.GET("/:id", api.GetRecipeByID)
 		recipe.DELETE("/", api.DeleteAllRecipes)

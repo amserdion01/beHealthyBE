@@ -15,6 +15,7 @@ type Recipe struct {
 	Preparation int    `gorm:"column:preparation;type:int4;not null"`
 	Cooking     int    `gorm:"column:cooking;type:int4;not null"`
 	Tools       string `gorm:"column:tools;type:text;not null"`
+	ImageURL    string `gorm:"column:image_url;type:text;not null"`
 }
 
 //  ["a", "b"]

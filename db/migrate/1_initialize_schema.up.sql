@@ -6,6 +6,7 @@ CREATE TABLE recipes (
 	author VARCHAR(512) NOT NULL,
 	author_id TEXT NOT NULL,
 	ingredients text NOT NULL,
+	image_url text NOT NULL,
 	details TEXT NOT NULL,
 	portions INT4 NOT NULL,
 	preparation INT4 NOT NULL,
