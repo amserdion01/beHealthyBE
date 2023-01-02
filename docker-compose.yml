@@ -4,7 +4,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      - DSN=postgres://postgres:postgrespw@host.docker.internal:5432/postgres?sslmode=disable
+      - DSN=postgres://postgres:postgrespw@database:5432/postgres?sslmode=disable
   database:
     image: postgres 
     ports:
@@ -29,15 +29,15 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - BACKEND_URL=http://host.docker.internal:8888
-      - AUTH_URL=http://host.docker.internal:5433
+      - BACKEND_URL=http://backend:8888
+      - AUTH_URL=http://database_auth:5433
       - AUTH_CLIENT_ID=behealthybe
       - AUTH_CLIENT_SECRET
       - GOOGLE_CLIENT_ID=425291061241-thulhehn4rhu1chqa9n8o9fdbfq8nkqr.apps.googleusercontent.com
       - GOOGLE_CLIENT_SECRET=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
       - DISCORD_CLIENT_ID= Required
       - DISCORD_CLIENT_SECRET= Required
-      - NEXT_PUBLIC_API_URL=http://host.docker.internal:8888/v1/recipe
-      - API_URL=http://host.docker.internal:8888/v1/recipe
+      - NEXT_PUBLIC_API_URL=http://backend:8888/v1/recipe
+      - API_URL=http://backend:8888/v1/recipe
       - NEXTAUTH_SECRET=9546e6e3665750a61ed3da81295509b4
       - NEXTAUTH_URL=http://localhost:3000
