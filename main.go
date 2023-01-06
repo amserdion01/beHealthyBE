@@ -51,6 +51,7 @@ func main() {
 	}
 
 	srv := &http.Server{
+		Addr:    "0.0.0.0:443",
 		Handler: router,
 	}
 
