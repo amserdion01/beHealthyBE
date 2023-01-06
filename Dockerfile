@@ -8,6 +8,6 @@ FROM debian:stretch
 ENV GIN_MODE release
 COPY --from=0 /main .
 COPY --from=0 ./db /db
-EXPOSE 8888
+EXPOSE 443
 
 ENTRYPOINT ["./main"]
