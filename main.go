@@ -51,13 +51,13 @@ func main() {
 	}
 
 	srv := &http.Server{
-		Addr:    "0.0.0.0:443",
+		Addr:    "0.0.0.0:8888",
 		Handler: router,
 	}
 
 	go func() {
 		// service connections
-		if err := srv.ListenAndServeTLS("/etc/secrets/be-healthy-uvt.live.chained.crt", "/etc/secrets/be-healthy-uvt.live.key"); err != nil && err != http.ErrServerClosed {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
